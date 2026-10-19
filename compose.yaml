@@ -1,0 +1,18 @@
+# 放在 NAS 的 /volume1/docker/collector/compose.yaml，由 Container Manager 專案「collector」啟動。
+# 程式碼不放在這裡：容器啟動時從 GitHub 拉 jsdryan/nas-collector，之後每小時自動更新。
+services:
+  collector:
+    image: python:3.12-alpine
+    container_name: collector
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Taipei
+    volumes:
+      - /volume1/docker/collector:/collector
+    command:
+      - sh
+      - -c
+      - >
+        apk add --no-cache git openssh-client tzdata >/dev/null &&
+        (git -C /collector/repo pull -q || git clone -q https://github.com/jsdryan/nas-collector /collector/repo) &&
+        exec sh /collector/repo/bin/start.sh
