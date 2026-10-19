@@ -5,3 +5,5 @@
 
 # 新莊教保員職缺 → jsdryan/xinzhuang-kindergarten-jobs（人才庫擋國外 IP，所以由 NAS 抓）
 30 6  *  *  *  sh /collector/repo/bin/run-job.sh xinzhuang-jobs jsdryan/xinzhuang-kindergarten-jobs "python3 scraper/fetch_jobs.py"
+# 試跑（2026-10-19 12:10 一次：驗證 fetch_exams 在 NAS 上可執行，驗證完刪掉）
+10 12 19 10 *  sh /collector/repo/bin/run-job.sh xinzhuang-jobs jsdryan/xinzhuang-kindergarten-jobs "python3 scraper/fetch_jobs.py"
